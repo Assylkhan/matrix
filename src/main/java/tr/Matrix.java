@@ -2,9 +2,6 @@ package tr;
 
 import java.util.Random;
 
-/**
- * Created by Асылхан on 23.10.2014.
- */
 public class Matrix {
     private int[][] value;
 
@@ -13,9 +10,9 @@ public class Matrix {
     }
 
     public void autoFill(){
-        for (int i = 0; i < getColumnCount(); i++) {
-            for (int j = 0; j < getRowCount(); j++) {
-                value[i][j] = new Random().nextInt(100);
+        for (int i = 0; i < getRowCount(); i++) {
+            for (int j = 0; j < getColumnCount(); j++) {
+                value[i][j] = new Random().nextInt(10);
             }
         }
     }
@@ -24,21 +21,12 @@ public class Matrix {
         return value;
     }
 
-    public void Print(){
-        for (int i = 0; i < getColumnCount(); i++) {
-            for (int j = 0; j < getRowCount(); j++) {
-                System.out.print(value[i][j] + "");
-            }
-            System.out.println();
-        }
-    }
-
-    public Matrix multiply(Matrix array){
-        Matrix result = new Matrix(getColumnCount(), array.getRowCount());
-        for (int i = 0; i < getColumnCount(); i++) {
-            for (int j = 0; j < getRowCount(); j++) {
-                for (int k = 0; k < getRowCount(); k++) {
-                    result.value[i][k] = value[i][j] + array.value[j][k];
+    public int[][] multiply(Matrix array){
+        int[][] result = new int[getRowCount()][array.getColumnCount()];
+        for (int i = 0; i < getRowCount(); i++) {
+            for (int j = 0; j < array.getColumnCount(); j++) {
+                for (int k = 0; k < getColumnCount(); k++) {
+                    result[i][j] += value[i][k] * array.value[k][j];
                 }
             }
         }
@@ -46,9 +34,9 @@ public class Matrix {
     }
 
     public int getRowCount(){
-        return value[0].length;
+        return value.length;
     }
     public int getColumnCount(){
-        return value.length;
+        return value[0].length;
     }
 }
